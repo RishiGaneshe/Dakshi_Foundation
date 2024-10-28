@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Form with File Upload</title>
+    <script>
+        
+        async function fetchCsrfToken() {
+            try {
+                const response = await fetch('/api/get-token');
+                const data = await response.json();
+                if (response.ok) {
+                    document.getElementById('csrfToken').value = data.csrfToken;
+                    console.log(data.csrfToken)
+                } else {
+                    console.log('Failed to get CSRF token');
+                }
+            } catch (error) {
+                console.log('Error:', error);
+            }
+        }
+
+        window.onload= fetchCsrfToken();
+        document.getElementById('volunteerForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); 
+
+            const formData = new FormData(this); 
+            try {
+                const response = await fetch('/submit', {
+                    method: 'POST',
+                    body: formData 
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    alert('Form submitted successfully!');
+                } else {
+                    alert('Error: ' + result.msg);
+                }
+            } catch (error) {
+                console.log('Error submitting form:', error);
+            }
+        });
+
+    </script>
+</head>
+<body>
+
+    <h2>Volunteer Form with File Upload</h2>
+    <form id="volunteerForm" method="POST" enctype="multipart/form-data">
+        <!-- Name -->
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="Name" required><br><br>
+
+        <!-- Father's Name -->
+        <label for="fathers_name">Father's Name:</label>
+        <input type="text" id="fathers_name" name="Fathers_Name" required><br><br>
+
+        <!-- Mobile Number -->
+        <label for="mobile_no">Mobile No:</label>
+        <input type="tel" id="mobile_no" name="Mobile_No" pattern="[0-9]{10}" required><br><br>
+
+        <!-- Email -->
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="Email" required><br><br>
+
+        <!-- Qualification -->
+        <label for="qualification">Qualification:</label>
+        <input type="text" id="qualification" name="Qualification" required><br><br>
+
+        <!-- Work Experience -->
+        <label for="work_experience">Work Experience:</label>
+        <input type="text" id="work_experience" name="Work_Experience"><br><br>
+
+        <!-- Address -->
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="Address" required><br><br>
+
+        <!-- About You -->
+        <label for="about_you">About You:</label>
+        <textarea id="about_you" name="About_You" rows="4" cols="50" required></textarea><br><br>
+
+        <!-- File Upload -->
+        <label for="resume">Upload Resume (PDF or DOC):</label>
+        <input type="file" id="Image" name="Image"  required><br><br>
+
+        <!-- Hidden CSRF Token Field -->
+        <input type="hidden" id="csrfToken" name="csrfToken">
+
+        <!-- Submit Button -->
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+</html>

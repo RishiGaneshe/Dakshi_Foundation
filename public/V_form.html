@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Your Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        form {
+            background-color: white;
+            padding: 20px;
+            margin-top: 500px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+        input[type="text"], input[type="email"], input[type="file"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        textarea {
+            resize: vertical;
+            height: 80px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            width: 100%;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <form id="volunteerForm" action="/submit" method="POST" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="Name" required>
+
+        <label for="fathers_name">Father's Name:</label>
+        <input type="text" id="fathers_name" name="Fathers_Name" required>
+
+        <label for="mobile_no">Mobile No:</label>
+        <input type="text" id="mobile_no" name="Mobile_No" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="Email" required>
+
+        <label for="qualification">Qualification:</label>
+        <input type="text" id="qualification" name="Qualification" required>
+
+        <label for="work_experience">Work Experience:</label>
+        <input type="text" id="work_experience" name="Work_Experience">
+
+        <label for="address">Address:</label>
+        <textarea id="address" name="Address" required></textarea>
+
+        <label for="about_you">About You:</label>
+        <textarea id="about_you" name="About_You"></textarea>
+
+        <label for="image">Upload Image:</label>
+        <input type="file" id="image" name="Image" accept="image/*" required>
+
+        <input type="submit" value="Submit">
+    </form>
+    <script> 
+              function getCookie(name) {
+                   const value = `; ${document.cookie}`;
+                   const parts = value.split(`; ${name}=`);
+                   if (parts.length === 2) return parts.pop().split(';').shift();
+            }
+
+            async function fetchCsrfToken() {
+              try {
+                   const response = await fetch('/api/get-token');
+                   const data = await response.json();
+                   if (response.ok) {
+                       const csrfToken= data.csrfToken;
+                       console.log(csrfToken)
+                    return 
+                   } else {
+                       console.log('Failed to get CSRF token');
+                   }
+              } catch (error) {
+                   console.log('Error:', error);
+              }
+            }
+
+            window.onload= fetchCsrfToken();
+
+            document.getElementById('volunteerForm').addEventListener('submit', async function(event) {
+                event.preventDefault(); 
+
+                const formData = new FormData(this); 
+                const csrfToken = getCookie('XSRF-TOKEN');
+                try {
+                    const response = await fetch('/submit', {
+                        method: 'POST',
+                        body: formData ,
+                        headers: {
+                            'X-XSRF-TOKEN': csrfToken // Send CSRF token from the cookie
+                        }
+                    })
+
+                    const result = await response.json();
+                    if (response.ok) {
+                        alert('Form submitted successfully!');
+                    } else {
+                        alert('Error: ' + result.msg);
+                    }
+                } catch (error) {
+                    console.log('Error submitting form:', error);
+                }
+            });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 400px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+        input[type="text"], input[type="email"], input[type="number"], textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        textarea {
+            resize: vertical;
+            height: 80px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            width: 100%;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <form action="/donate-data" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="Name" required>
+
+        <label for="mobile_no">Mobile No:</label>
+        <input type="text" id="mobile_no" name="Mobile_No" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="Email" required>
+
+        <label for="address">Address:</label>
+        <textarea id="address" name="Address" required></textarea>
+
+        <label for="adhar_id">Adhar ID:</label>
+        <input type="text" id="adhar_id" name="AdharId" required>
+
+        <label for="donation">Donation (in INR):</label>
+        <input type="number" id="donation" name="Donation" required>
+
+        <label for="mode">Mode of Donation:</label>
+        <select id="mode" name="Mode" required>
+            <option value="" disabled selected>Select Mode</option>
+            <option value="cash">Cash</option>
+            <option value="online">Online</option>
+            <option value="cheque">Cheque</option>
+        </select>
+
+        <label for="toward">Toward:</label>
+        <input type="text" id="toward" name="Toward" required>
+
+        <label for="remark">Remark:</label>
+        <textarea id="remark" name="Remark"></textarea>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
