@@ -108,7 +108,7 @@ const Header = () => {
       <nav
         className={`md:hidden flex flex-col space-y-2 mt-2 items-center transition-all duration-300 ease-in-out transform ${isOpen ? 'opacity-100 max-h-screen pb-4' : 'opacity-0 max-h-0 overflow-hidden'}`}
       >
-        <Link to=" /" className="text-gray-600 font-bold hover:text-red-600 transition-colors duration-300" onClick={handleDropdownItemClick}>Home</Link>
+        <Link to="/" className="text-gray-600 font-bold hover:text-red-600 transition-colors duration-300" onClick={handleDropdownItemClick}>Home</Link>
         <Link to="/about" className="text-gray-600 font-bold hover:text-red-600 transition-colors duration-300" onClick={handleDropdownItemClick}>About</Link>
 
         {/* Programs Dropdown for Mobile */}
