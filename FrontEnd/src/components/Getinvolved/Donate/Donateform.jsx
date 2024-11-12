@@ -100,7 +100,7 @@ const Donateform = () => {
   
     if (Object.keys(validationErrors).length === 0) {
       try {
-        const response = await fetch("http://192.168.1.2:8000/create-donation", {
+        const response = await fetch("https://dakshifoundation.in/create-donation", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -133,7 +133,7 @@ const Donateform = () => {
             console.log('Signature:', signature);
             alert("Payment Successful!");
 
-            fetch('http://192.168.1.2:8000/payment-verification', {
+            fetch('https://dakshifoundation.in/payment-verification', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
