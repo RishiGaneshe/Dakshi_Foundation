@@ -44,7 +44,7 @@ const Partnerform = () => {
       
         if (Object.keys(validationErrors).length === 0) {
           try {
-            const response = await fetch("http://192.168.1.2:8000/partner-data", {
+            const response = await fetch("https://dakshifoundation.in/partner-data", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
