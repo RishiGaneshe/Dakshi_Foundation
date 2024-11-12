@@ -63,7 +63,7 @@ const Volunteerform = () => {
                 formPayload.append(key, formData[key]);
             }
             // API call to submit form data
-            fetch('http://192.168.1.2:8000/submit', {
+            fetch('https://dakshifoundation.in/submit', {
                 method: 'POST',
                 body: formPayload,
             })
