@@ -14,7 +14,7 @@ const PORT = 8000;
 app.use(cors());
 app.use(express.json());
 // app.use(express.static("./public"))
-app.use(express.static(path.join(__dirname, 'frontEnd/dist')));
+app.use(express.static(path.join(__dirname, 'FrontEnd/dist')));
 app.use(express.urlencoded({ extended: true }));  
 app.use(cookieParser());
 
@@ -27,7 +27,7 @@ app.use(session({
 }))
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'frontEnd/dist', 'index.html'));
+    res.sendFile(path.join(__dirname, 'FrontEnd/dist', 'index.html'));
 });
 
 
