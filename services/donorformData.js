@@ -27,8 +27,8 @@ const auth = new google.auth.GoogleAuth({
               },
         };
         try{
-            await sheets.spreadsheets.values.append(request);
-            console.log("Data Submitted Successfully")
+            const result= await sheets.spreadsheets.values.append(request);
+            return result.status
         }catch(err){
             console.log("Error In Submiting Data.",err)
         }
