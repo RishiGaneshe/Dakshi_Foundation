@@ -58,16 +58,20 @@ exports.verifyPayment= async (req,res)=>{
       if(generatedSignature===signature){
           console.log("Payment Successfull.")
            
-          const receiptNumber = Math.floor(Math.random() * 1e10); // 1e10 is 10^10
-          if(  !Name || !Mobile_No || !Email || !Address  || !AdharId || !Donation || !receiptNumber){
+          if(  !Name || !Mobile_No || !Email || !Address  || !AdharId || !Donation || !payment_id){
             return res.status(400).json({ success: false, msg: "Provide all data about user" });
           }
           
           try{
-              await appendDataToDonorSheet( Name, receiptNumber, Mobile_No, Email, Address, AdharId, Donation, Toward, Remark )
-              const returnData= { Name, receiptNumber, Mobile_No, Email, Address, AdharId, Donation, Toward, Remark }
-              logger.apiLogger.log('info','Donor Data submitted successfully.')
-              return res.status(200).json({sucess: true, msg: "Payment verified", DATA: returnData})         
+              const statusCode= await appendDataToDonorSheet( Name, payment_id, Mobile_No, Email, Address, AdharId, Donation, Toward, Remark )
+                if(statusCode===200){
+                  const returnData= { Name, payment_id, Mobile_No, Email, Address, AdharId, Donation, Toward, Remark }
+                  logger.apiLogger.log('info','Donor Data submitted successfully.')
+                  return res.status(200).json({sucess: true, msg: "Payment verified", DATA: returnData})         
+                }else{
+                  console,log("status code: ", statusCode)
+                  logger.apiLogger.log('info','Problem in submitting Partner Data.')
+                }
           }catch(err){
                console.log("Error in savinf data in form",err)
           }   
@@ -75,7 +79,6 @@ exports.verifyPayment= async (req,res)=>{
       }else{
           return res.status(400).json({success: false, msg: "Payment failed."})
       }
-
   }catch(err){
       console.log("Error in payment varification API.",err)
       logger.apiLogger.log('error',`Error in Payment verification.${err}`)
