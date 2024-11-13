@@ -14,26 +14,6 @@ exports.handleGetLaunchPage= async(req,res)=>{
 }
 
 
-exports.handleGetVform= async(req,res)=>{
-  try{
-      return res.sendFile('C:/Users/91930/Desktop/Vs_Code/DF/public/V_form.html')
-  }catch(err){
-      console.log("Error in Sendin V-form.",err)
-      return res.status(500).json({msg:"Internal Server Error"})
-  }
-}
-
-
-exports.handleGetDonationform= async(req,res)=>{
-  try{
-      return res.sendFile('C:/Users/91930/Desktop/Vs_Code/DF/public/DonationForm.html')
-  }catch(err){
-      console.log("Error in Sendin V-form.",err)
-      return res.status(500).json({msg:"Internal Server Error"})
-  }
-}
-
-
 exports.handleGetCsrfToken= async( req,res)=>{
   try{
       const csrfToken = req.csrfToken();
@@ -58,9 +38,14 @@ exports.handePostVolunterData= async(req,res)=>{
       }
 
       try{
-          await appendDataToSheet( Name, Fathers_Name, Mobile_No, Email, Qualification, Work_Experience, Address, About_You, imageFile)
-          logger.apiLogger.log('info','Volunteer Data submitted successfully.')
-          return res.status(200).json({msg:"Volunteer Data Submitted Successfully"})
+          const statusCode= await appendDataToSheet( Name, Fathers_Name, Mobile_No, Email, Qualification, Work_Experience, Address, About_You, imageFile)
+            if(statusCode===200){
+              logger.apiLogger.log('info','Volunteer Data submitted successfully.')
+              return res.status(200).json({msg:"Data Submitted Successfully"})
+            }else{
+              console.log("status code: ", statusCode)
+              logger.apiLogger.log('info','Problem in submitting Volunteer Data.')
+            }
       }catch(err){
           console.log("Error in Data Submission.",err)
           logger.apiLogger.log('error',`Error in the volunteer data submission`)
@@ -83,9 +68,14 @@ exports.handePostDonorData= async(req,res)=>{
       }
 
       try{
-          await appendDataToDonorSheet( Name, Mobile_No, Email, Address, AdharId, Donation, Toward, Remark )
-          logger.apiLogger.log('info','Donor Data submitted successfully.')
-          return res.status(200).json({msg:"Data Submitted Successfully"})
+          const statusCode= await appendDataToDonorSheet( Name, Mobile_No, Email, Address, AdharId, Donation, Toward, Remark )
+            if(statusCode===200){
+              logger.apiLogger.log('info','Donor Data submitted successfully.')
+              return res.status(200).json({msg:"Data Submitted Successfully"})
+            }else{
+              console.log("status code: ", statusCode)
+              logger.apiLogger.log('info','Problem in submitting Partner Data.')
+            }
       }catch(err){
           console.log("Error in Data Submission.",err)
           logger.apiLogger.log('error',`Error in Donor Data submission.${err}`)
@@ -107,16 +97,23 @@ exports.handlePostPartnerDetails= async(req,res)=>{
       if( !companyName || !contactPersonName || !email ||  !phoneNumber || !address ){
           return res.status(400).send('Please fill in all fields.');
       }
-      console.log(companyName)
+      
       try{
-          await appendDataToPartnerSheet( companyName, contactPersonName, email,  phoneNumber,  websiteLink, address, missionStatement )
-          logger.apiLogger.log('info','Partner Data submitted successfully.')
-          return res.status(200).json({msg:"Data Submitted Successfully"})
+          const statusCode= await appendDataToPartnerSheet( companyName, contactPersonName, email,  phoneNumber,  websiteLink, address, missionStatement )
+          if(statusCode===200){
+              console.log("Partner Data submitted successfully.")
+              logger.apiLogger.log('info','Partner Data submitted successfully.')
+              return res.status(200).json({msg:"Data Submitted Successfully"})
+          }else{
+              console.log("status code: ", statusCode)
+              logger.apiLogger.log('info','Problem in submitting Partner Data.')
+          }
       }catch(err){
           console.log("Error in Partner Data Submission.",err)
           logger.apiLogger.log('error',`Error in Partner Data submission.${err}`)
           res.status(500).json({msg:"Error submitting Partner data. Please try again."})
       }
+    
   }catch(err){
       console.log("Error in Partner Form Data Submission.",err)
       logger.apiLogger.log('error',`Error in Partner Form Data Submission.${err}`)
