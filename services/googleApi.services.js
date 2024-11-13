@@ -33,8 +33,8 @@ exports.appendDataToSheet=async (Name, Fathers_Name, Mobile_No,Email, Qualificat
             },
       };
       try{
-          await sheets.spreadsheets.values.append(request);
-          console.log("Data Submitted Successfully")
+          const result= await sheets.spreadsheets.values.append(request);
+          return result.status
       }catch(err){
           console.log("Error In Submiting Data.",err)
       }
