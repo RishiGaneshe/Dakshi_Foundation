@@ -29,8 +29,20 @@ All significant events, errors, and transaction details are logged using [Winsto
 - **Node.js** (v14.x or later)
 - **Razorpay API keys**
 - **Google Service Account** with access to the Google Sheets API
-- `.env` file with the following keys:
-  ```plaintext
-  RAZORPAY_KEY_ID=your_key_id
-  RAZORPAY_KEY_SECRET=your_key_secret
-  GOOGLE_SERVICE_ACCOUNT_CREDENTIALS=your_google_credentials_json
+
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/RishiGaneshe/DF.git
+    ```
+2. **Install dependencies**:
+    ```bash
+    cd DF
+    npm install
+    ```
+3. **Start the application**:
+    ```bash
+    npm node app.js
+    ```
+
+---
+
