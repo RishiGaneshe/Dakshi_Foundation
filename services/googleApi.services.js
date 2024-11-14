@@ -3,11 +3,7 @@ const path= require('path')
 const fs= require('fs')
 
 
-const spreadsheetId = '1VbnqwBzaGLjg0B3bzSqpnR8oSP1y_xcc6UQP3nR1HhQ';             // The ID from the Google Sheets URL
-const DonorSheetId = '1nIT4uTEPYJYrxTOvb4JWj-FFiYZmeyCHp9qgTZYR4Rw'
-const PartnerSheetId= '1kt_5B9-pvY9CMknw9ueKy2ZRK4VvyK-qUNlwgTxStSE'
-
-
+const spreadsheetId = '';             // The ID from the Google Sheets URL
 
 const auth = new google.auth.GoogleAuth({
     keyFile: path.join(__dirname, 'dakshi-foundation-2e4f49ebc7c6.json'),         // Path to service account key
