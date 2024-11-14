@@ -3,7 +3,7 @@ const path= require('path')
 const fs= require('fs')
 
 
-const spreadsheetId = '1nIT4uTEPYJYrxTOvb4JWj-FFiYZmeyCHp9qgTZYR4Rw';             // The ID from the Google Sheets URL
+const spreadsheetId = '';             // The ID from the Google Sheets URL
 
 
 const auth = new google.auth.GoogleAuth({
