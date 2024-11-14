@@ -2,7 +2,7 @@ const {google}= require('googleapis')
 const path= require('path')
 const fs= require('fs')
 
-const spreadsheetId= '1kt_5B9-pvY9CMknw9ueKy2ZRK4VvyK-qUNlwgTxStSE'
+const spreadsheetId= ''
 
 const auth = new google.auth.GoogleAuth({
     keyFile: path.join(__dirname, 'dakshi-foundation-2e4f49ebc7c6.json'),         // Path to service account key
