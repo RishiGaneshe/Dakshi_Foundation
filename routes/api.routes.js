@@ -23,8 +23,6 @@ router.get("/api/get-token" , API.handleGetCsrfToken)
 
 router.post("/submit", upload.single('Image'), API.handePostVolunterData)
 
-// router.post("/donate-data", API.handePostDonorData)
-
 router.post("/partner-data", API.handlePostPartnerDetails)
 
 
