@@ -13,14 +13,13 @@ const PORT = 8000;
 
 app.use(cors());
 app.use(express.json());
-// app.use(express.static("./public"))
 app.use(express.static(path.join(__dirname, 'FrontEnd/dist')));
 app.use(express.urlencoded({ extended: true }));  
 app.use(cookieParser());
 
 
 app.use(session({
-    secret: '1234567890qwertyuiopqasxzxcvbnmkloitdghjhgfdgrbrfgufghfuh',
+    secret: '1234567890qwertyuiopqasxzxcvbnmkloitdghjhgfdgrbrfgufghfuhhduwwdwb',
     resave: false,
     saveUninitialized: true,
     cookie: {secure : false }
