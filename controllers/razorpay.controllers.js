@@ -69,7 +69,7 @@ exports.verifyPayment= async (req,res)=>{
                   logger.apiLogger.log('info','Donor Data submitted successfully.')
                   return res.status(200).json({sucess: true, msg: "Payment verified", DATA: returnData})         
                 }else{
-                  console,log("status code: ", statusCode)
+                  console.log("status code: ", statusCode)
                   logger.apiLogger.log('info','Problem in submitting Partner Data.')
                 }
           }catch(err){
